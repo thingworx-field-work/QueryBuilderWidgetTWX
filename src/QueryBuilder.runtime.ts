@@ -127,7 +127,9 @@ class QueryBuilder extends TWRuntimeWidget {
                 break;
             case 'in':
             case 'not_in':
-                filter.values = rule.value ? rule.value.split(',').map((r: string) => r.trim()) : rule.value;
+                filter.values = Array.isArray(rule.value)
+                    ? rule.value
+                    : rule.value.split(',').map((r: string) => r.trim());
                 break;
             default: return undefined;
         }
@@ -235,7 +237,8 @@ class QueryBuilder extends TWRuntimeWidget {
                     let filter = {
                         id: key,
                         label: this.useDescriptions ? this.dataShape.fieldDefinitions[key].description || key : key,
-                        type: "string"
+                        type: "string",
+                        value_separator: ','
                     };
                     if (this.useRowsAsValues) {
                         (<any>filter).values = data.rows.map((row) => row[key]);
@@ -251,7 +254,9 @@ class QueryBuilder extends TWRuntimeWidget {
                         id: key,
                         label: this.useDescriptions ? this.dataShape.fieldDefinitions[key].description || key : key,
                         type: 'double',
-                        operators: ['equal', 'not_equal', 'greater', 'greater_or_equal', 'between', 'not_between', 'less', 'less_or_equal']
+                        operators: ['equal', 'not_equal', 'greater', 'greater_or_equal', 'between', 'not_between', 'less', 'less_or_equal', 'in', 'not_in'],
+                        input: 'text',
+                        value_separator: ','
                     });
                     break;
                 case 'INTEGER':
@@ -260,11 +265,9 @@ class QueryBuilder extends TWRuntimeWidget {
                         id: key,
                         label: this.useDescriptions ? this.dataShape.fieldDefinitions[key].description || key : key,
                         type: 'integer',
-                        operators: ['equal', 'not_equal', 'greater', 'greater_or_equal', 'between', 'not_between', 'less', 'less_or_equal'],
-                        validation: {
-                            min: -2147483648,
-                            max: 2147483647
-                        }
+                        operators: ['equal', 'not_equal', 'greater', 'greater_or_equal', 'between', 'not_between', 'less', 'less_or_equal', 'in', 'not_in'],
+                        input: 'text',
+                        value_separator: ','
                     });
                     break;
                 case 'BOOLEAN':

@@ -35,7 +35,7 @@ class CompositionQuery implements GenericTwxQuery {
         return {
             field: this.query.fieldName,
             operator: this.compositionMap[this.query.type],
-            value: this.query.values.join(","),
+            value: this.query.values,
             id: this.query.fieldName
         };
     }
