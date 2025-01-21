@@ -4,13 +4,13 @@
     "description": "Query Builder",
     "author": "PTC + IQNOX",
     "minimumThingWorxVersion": "6.0.0",
-    "homepage": "https://github.com/ptc-iot-sharing/QueryBuilderWidgetTWX",
+    "homepage": "https://github.com/thingworx-field-work/QueryBuilderWidgetTWX",
     "autoUpdate": {
-        "gitHubURL": "https://api.github.com/repos/ptc-iot-sharing/QueryBuilderWidgetTWX/releases/latest"
+        "gitHubURL": "https://api.github.com/repos/thingworx-field-work/QueryBuilderWidgetTWX/releases/latest"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/ptc-iot-sharing/QueryBuilderWidgetTWX.git"
+        "url": "https://github.com/thingworx-field-work/QueryBuilderWidgetTWX.git"
     },
     "type": "module",
     "scripts": {
