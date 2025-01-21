@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/thingworx-field-work/QueryBuilderWidgetTWX/compare/v1.5.0...v1.6.0) (2025-01-21)
+
+
+### Features
+
+* add IN operator for number inputs ([#47](https://github.com/thingworx-field-work/QueryBuilderWidgetTWX/issues/47)) ([cc517e4](https://github.com/thingworx-field-work/QueryBuilderWidgetTWX/commit/cc517e4c287b9d87613efa1da25c9c751d575049))
+
 # [1.5.0](https://github.com/ptc-iot-sharing/QueryBuilderWidgetTWX/compare/v1.4.1...v1.5.0) (2024-10-01)
 
 
