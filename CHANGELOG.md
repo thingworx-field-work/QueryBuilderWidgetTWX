@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/thingworx-field-work/QueryBuilderWidgetTWX/compare/v1.6.0...v1.7.0) (2025-03-04)
+
+
+### Features
+
+* Add new `ReadOnly` property that can be used to mark the QueryBuilder as readonly. A class, `.read-only` is also added to the root element ([18f4cca](https://github.com/thingworx-field-work/QueryBuilderWidgetTWX/commit/18f4ccac6cffd1a20e586774065fe18f192a0316))
+
 # [1.6.0](https://github.com/thingworx-field-work/QueryBuilderWidgetTWX/compare/v1.5.0...v1.6.0) (2025-01-21)
 
 
