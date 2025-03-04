@@ -90,7 +90,12 @@ class QueryBuilder extends TWComposerWidget {
                     description: 'Display format for date values selected in a query',
                     isBindingTarget: true,
                     defaultValue: 'DD/MM/YYYY HH:mm:ss'
-                }
+                },
+                ReadOnly: {
+                    baseType: 'BOOLEAN',
+                    description: 'If enabled, the query builder will be read-only.',
+                    defaultValue: false,
+                },
             }
         };
     };

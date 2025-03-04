@@ -345,7 +345,13 @@ class QueryBuilder extends TWRuntimeWidget {
         }
 
 
-        (<any>this.jqElement).queryBuilder({ filters, allow_groups: this.getProperty("AllowGroups"), conditions: conditionsArray });
+        (<any>this.jqElement).queryBuilder({
+            filters,
+            allow_groups: this.getProperty('AllowGroups'),
+            conditions: conditionsArray,
+            read_only: this.getProperty('ReadOnly'),
+            plugins: { readOnly: null, },
+        });
         this.jqElement.on('rulesChanged.queryBuilder', this.onQueryChanged);
         if(this.savedQuery) {
             this.updateProperty(<any>{
@@ -367,16 +373,37 @@ class QueryBuilder extends TWRuntimeWidget {
         let resolve: () => void;
         this.afterRenderPromise = new Promise((r) => (resolve = r));
 
-        await import ("./styles/runtime.css");
-        await import ("./styles/query-builder.default.min.css");
-        await import ("./styles/no-bootstrap.css");
-        await import ('jQuery-QueryBuilder');
+        await import("./styles/runtime.css");
+        await import("./styles/query-builder.default.min.css");
+        await import("./styles/no-bootstrap.css");
+        await import("jQuery-QueryBuilder");
+        // Create a new plugin for read-only mode for the QueryBuilder
+        ($.fn as any).queryBuilder.defaults = {
+            read_only: false,
+        };
+        ($.fn as any).queryBuilder.define("readOnly", function () {
+            if (!this.settings.read_only) {
+                return;
+            }
+            let makeReadOnly = () => {
+                this.$el.find(':input').prop('disabled', true);
+                // add tooltips to the input in case it has a long value
+                this.$el.find('input').prop('title', function () {
+                    return this.value;
+                });
+            };
+            this.$el.addClass("read-only");
+            // if read only, disable interactive elements
+            setTimeout(makeReadOnly, 0);
+            // After the rule changes, ensure that the inputs are marked as disabled
+            this.on("afterSetRules", makeReadOnly);
+        });
         this.setProperty("ContainsValidQuery", false);
         this.setProperty("IsQueryEmpty", true);
-        if(!this.datePickerFormat) {
-            this.setProperty('DatePickerFormat', 'DD/MM/YYYY HH:mm:ss');
+        if (!this.datePickerFormat) {
+            this.setProperty("DatePickerFormat", "DD/MM/YYYY HH:mm:ss");
         }
-        resolve()
+        resolve();
     }
 
     serviceInvoked(name: string): void { }

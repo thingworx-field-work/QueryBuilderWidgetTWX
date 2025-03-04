@@ -91,3 +91,9 @@
     font-size: 12px !important;
     height: 30px !important;
 }
+
+/** Hide buttons in read-only mode */
+.query-builder.read-only .btn.btn-danger,
+.query-builder.read-only .group-actions .btn-success {
+    display: none;
+}
