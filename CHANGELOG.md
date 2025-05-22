@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/thingworx-field-work/QueryBuilderWidgetTWX/compare/v1.7.0...v1.7.1) (2025-05-22)
+
+
+### Bug Fixes
+
+* improve how `useRowsAsValues` operates, by getting only the unique values in the dropdown. Also multiple binds of the data ([#48](https://github.com/thingworx-field-work/QueryBuilderWidgetTWX/issues/48)) ([ce026d9](https://github.com/thingworx-field-work/QueryBuilderWidgetTWX/commit/ce026d9c75a7ac7aff378abb046b344076a06f19))
+
 # [1.7.0](https://github.com/thingworx-field-work/QueryBuilderWidgetTWX/compare/v1.6.0...v1.7.0) (2025-03-04)
 
 
