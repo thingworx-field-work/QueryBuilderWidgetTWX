@@ -215,11 +215,9 @@ class QueryBuilder extends TWRuntimeWidget {
 
         // Check to see if an update is required
         if (this.dataShape) {
-            let currentKeys = Object.keys(this.dataShape.fieldDefinitions).sort();
-            let newKeys = Object.keys(data.dataShape.fieldDefinitions).sort();
-            let identicalDataShapes = JSON.stringify(currentKeys) === JSON.stringify(newKeys);
+            let identicalData = JSON.stringify(data) === JSON.stringify(this.dataShape);
 
-            if (identicalDataShapes) return;
+            if (identicalData) return;
             // remove the existing listener since it will crash anyway
             this.jqElement.off('rulesChanged.queryBuilder', this.onQueryChanged);
             (<any>this.jqElement).queryBuilder('destroy');
@@ -240,12 +238,19 @@ class QueryBuilder extends TWRuntimeWidget {
                         type: "string",
                         value_separator: ','
                     };
+                    const commonOperators = ['equal', 'not_equal', 'contains', 'begins_with', 'ends_with', 'in', 'not_in'];
                     if (this.useRowsAsValues) {
-                        (<any>filter).values = data.rows.map((row) => row[key]);
-                        (<any>filter).operators = ['equal', 'not_equal'];
-                        (<any>filter).input = "select";
+                        const uniqueValues = Array.from(new Set(data.rows.map((row) => row[key])));
+                        const isDropdown = uniqueValues.length > 0 && uniqueValues.every(v => typeof v === 'string' && v !== '');
+                        if (isDropdown) {
+                            (<any>filter).values = uniqueValues;
+                            (<any>filter).operators = ['equal', 'not_equal'];
+                            (<any>filter).input = "select";
+                        } else {
+                            (<any>filter).operators = commonOperators;
+                        }
                     } else {
-                        (<any>filter).operators = ['equal', "not_equal", 'contains', 'begins_with', 'ends_with', 'in', 'not_in'];
+                        (<any>filter).operators = commonOperators;
                     }
                     filters.push(filter);
                     break;
